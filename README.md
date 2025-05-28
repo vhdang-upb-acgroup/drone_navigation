@@ -72,6 +72,27 @@ In order to design a feedback control system, it is important to understand how 
    We can access to the drone's pose which contains positions: (x, y, z) and orientation: (x, y, z, w) in quaternion.
 
 ## Exercise 2: Design a simple P or PI controller for hovering task
+To do so, you should create another ROS2 package and you can name it "drone_controller"
+1. To create a ROS2 package you can do as follows
+   ```bash
+      # Create an empty ROS2 package with python
+      # Navigate to <your working directory>/src folder and run
+      ros2 pkg create --build-type ament_python drone_controller
+      # Build this package: You need to navigate to your working directory
+      cd ..
+      # Option 1: Build all packages inside /src with colcon build
+      colcon build
+      # Option2: Build only drone controller package with
+      colcon build packages-selective drone_controller
+   ```
+2. Create a python file to implement your PID controller
+   ```bash
+      ## You need to navigate to src/drone_controller/drone_controller
+      # Option 1: using VSCode to create a python file called: pid_hovering.py
+      # Option 2: using touch pid_hovering.py
+      touch pid_hovering.py
+   ```
+3. Start writing your implementation of PID controller that set a certain height (z position) and read feedback from pose
 
 
 

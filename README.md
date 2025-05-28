@@ -210,6 +210,99 @@ All you need to do is that
    ```
 3. Rebuild, source and run it again
 
+## Exercise 4: Design a simple PID controller to maintain a certain height
+1. Create a pid_z_controller.py within src/drone_controller/drone_controller
+2. Implementation of pid z controller looks like codes below
+```bash
+   import rclpy
+   from rclpy.node import Node
+   from geometry_msgs.msg import PoseArray
+   from actuator_msgs.msg import Actuators
+   from std_msgs.msg import Header
+   import time
+
+   class HeightController(Node):
+      def __init__(self):
+         super().__init__('height_controller')
+
+         # Target height in meters
+         self.target_height = 2.0
+
+         # PID gains
+         self.Kp = 150.0
+         self.Ki = 0.0
+         self.Kd = 50.0
+
+         # PID variables
+         self.integral = 0.0
+         self.last_error = 0.0
+         self.last_time = self.get_clock().now()
+
+         # ROS 2 interfaces
+         self.subscription = self.create_subscription(
+               PoseArray,
+               '/world/quadcopter/pose/info',
+               self.pose_callback,
+               10)
+
+         self.publisher_ = self.create_publisher(Actuators, '/X3/gazebo/command/motor_speed', 10)
+
+      def pose_callback(self, msg: PoseArray):
+         if len(msg.poses) <= 1:
+               self.get_logger().warn("PoseArray has fewer than 2 poses")
+               return
+
+         current_height = msg.poses[1].position.z
+         error = self.target_height - current_height
+
+         now = self.get_clock().now()
+         dt = (now - self.last_time).nanoseconds / 1e9  # Convert to seconds
+
+         if dt == 0:
+               return
+
+         self.integral += error * dt
+         derivative = (error - self.last_error) / dt
+
+         # PID formula
+         output = self.Kp * error + self.Ki * self.integral + self.Kd * derivative
+
+         # Motor command limits
+         base_speed = 400.0  # rad/s (hover baseline, adjust for your model)
+         motor_speed = base_speed + output
+         motor_speed = max(0.0, min(motor_speed, 900.0))  # limit between 0 and 900 rad/s
+
+         # Apply to all 4 motors
+         cmd = Actuators()
+         cmd.header = Header()
+         cmd.header.stamp = now.to_msg()
+         cmd.velocity = [motor_speed] * 4
+         cmd.position = []
+         cmd.normalized = []
+
+         self.publisher_.publish(cmd)
+         self.get_logger().info(f"Height: {current_height:.2f} m | Command: {motor_speed:.2f} rad/s")
+
+         self.last_error = error
+         self.last_time = now
+
+   def main(args=None):
+      rclpy.init(args=args)
+      node = HeightController()
+      rclpy.spin(node)
+      node.destroy_node()
+      rclpy.shutdown()
+
+   if __name__ == '__main__':
+      main()
+```
+2. Update dependencies and console
+3. Rebuild, source and run it
+
+## If everything works, you can observe
+![Hovering task](docs/hovering.png)
+
+
 
 
 

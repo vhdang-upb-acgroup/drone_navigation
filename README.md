@@ -128,6 +128,41 @@ To do so, you should create another ROS2 package and you can name it "drone_cont
       if __name__ == '__main__':
          main()
    ```
+4. Update dependencies and console
+   4.1 Update dependencies: Update the package.xml
+   ```bash
+      <!-- Build dependencies -->
+      <build_depend>ros_gz_bridge</build_depend>
+      <build_depend>rclcpp</build_depend>
+      <build_depend>rclpy</build_depend>
+      <build_depend>std_msgs</build_depend>
+      <build_depend>geometry_msgs</build_depend>
+
+      <!-- Runtime dependencies -->
+      <exec_depend>ros_gz_bridge</exec_depend>
+      <exec_depend>rclcpp</exec_depend>
+      <exec_depend>rclpy</exec_depend>
+      <exec_depend>std_msgs</exec_depend>
+      <exec_depend>geometry_msgs</exec_depend>
+   ```
+   4.2 Update console: In setup.py you should add
+   ```bash
+      entry_points={
+         'console_scripts': [
+               "sensor_node = drone_controller.sensor:main",
+         ],
+      },
+   ```
+5. Build and run the node
+   ```bash
+      # Build the package
+      colcon build --packages-select drone_controller
+      # Make sure you source before you run the node
+      source install/setup.bash
+      # Run it
+      ros2 run drone_controller sensor_node
+   ```
+
 
 
 

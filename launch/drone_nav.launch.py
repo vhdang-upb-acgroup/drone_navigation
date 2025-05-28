@@ -8,10 +8,11 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     ros_gz_sim_pkg = get_package_share_directory('ros_gz_sim')
+    path_to_sdf_model = os.path.join(get_package_share_directory('drone_navigation'), "models/drone_model.sdf")
 
     world_arg = DeclareLaunchArgument(
         'world',
-        default_value='/models/drone.sdf',
+        default_value=path_to_sdf_model,
         description='Full path to the SDF world file'
     )
 

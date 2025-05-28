@@ -83,7 +83,7 @@ To do so, you should create another ROS2 package and you can name it "drone_cont
       # Option 1: Build all packages inside /src with colcon build
       colcon build
       # Option2: Build only drone controller package with
-      colcon build packages-selective drone_controller
+      colcon build --packages-select drone_controller
    ```
 2. Create a python file to implement your PID controller
    ```bash

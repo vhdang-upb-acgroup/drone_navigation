@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>drone_navigation</name>
+  <version>0.0.1</version>
+  <description>Package to launch and bridge Gazebo and ROS2 with custom SDF model</description>
+
+  <maintainer email="vhuyendang@gmail.com">huyen_rat_admin</maintainer>
+  <license>Apache-2.0</license>
+
+  <!-- Buildtool -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- Build dependencies -->
+  <build_depend>ros_gz_bridge</build_depend>
+  <build_depend>ros_gz_interfaces</build_depend>
+  <build_depend>rclcpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>ament_cmake_auto</build_depend>
+
+  <build_depend>rosidl_default_generators</build_depend>
+
+  <!-- Runtime dependencies -->
+  <exec_depend>ros_gz_bridge</exec_depend>
+  <exec_depend>ros_gz_interfaces</exec_depend>
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+
+  <exec_depend>rosidl_default_runtime</exec_depend>
+
+  <!-- Test dependencies -->
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

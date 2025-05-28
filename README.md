@@ -26,10 +26,35 @@ drone_navigation/
    ## Now you are in /<your_preference_name> folder and you can build the package
    ros2 pkg create --build-type ament_python <your_package_name>
    ```
-2. Clone or download this to <your_working_directory>/src
+2. Download launch and models to <your_working_directory>/src/<your_package_name>
    ```bash
-   # Clone the repo to your machine
-   git clone
    # You can download it directly
    ```
 3. Modify CMakeList.txt and package.xml accordingly
+
+## An alternative, you can clone the repo 
+   ```bash
+   # Clone the repo to your working directory /src
+   git clone git@github.com:vhdang-upb-acgroup/drone_navigation.git
+   ```
+## Build and run the launch file
+   1. navigate to /<your working directory> such as ros2_ws, etc
+   2. Run colcon build
+   ```bash
+      # Option 1: Build all packages which are located in /src
+      colcon build
+      # Option 2: Build only specific package
+      colcon build --packages-select <package_name>
+   ```
+# Remember to source after building the package
+   ```bash
+      # source to get update by
+      source install/setup.bash
+   ```
+# Now try to run the launch file to see
+   ```bash
+      # Run launch file with ROS2
+      # ros2 launch <name_of_your_package> <name of your launch file>
+      # For example:
+      ros2 launch drone_navigation drone_nav.launch.py
+   ```

@@ -8,6 +8,7 @@ This sub-repository provides an initial implementation for students participatin
 drone_navigation/
 ├── launch/ 
 ├── models/
+├── docs/
 ├── package.xml
 ├── CMakeList.txt
 └── README.md
@@ -60,3 +61,17 @@ drone_navigation/
    ```
 # If everything works, you can observe
 ![Gazebo Interface](docs/gazebo.png)
+
+## Exercise 1: Check control inputs and feedback pose
+In order to design a feedback control system, it is important to understand how the drone is controlled and which information is available.
+
+# Control signals:
+   For this drone system, we can control it via RPMs of four motors. 
+
+# Feedback signals:
+   We can access to the drone's pose which contains positions: (x, y, z) and orientation: (x, y, z, w) in quaternion.
+
+## Exercise 2: Design a simple P or PI controller for hovering task
+
+
+

@@ -58,3 +58,5 @@ drone_navigation/
       # For example:
       ros2 launch drone_navigation drone_nav.launch.py
    ```
+# If everything works, you can observe
+![Gazebo Interface](docs/gazebo.png)

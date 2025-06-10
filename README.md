@@ -301,6 +301,7 @@ All you need to do is that
 
 ## If everything works, you can observe
 ![Hovering task](docs/hovering.png)
+# Current implementation just considers controlling the uav's height (z) and ignores attitude control. Consequently, the drone cannot maintain its height after a few seconds.
 
 
 

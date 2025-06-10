@@ -1,6 +1,6 @@
 import os
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, TimerAction
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, TimerAction, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from ament_index_python.packages import get_package_share_directory
@@ -14,6 +14,12 @@ def generate_launch_description():
         'world',
         default_value=path_to_sdf_model,
         description='Full path to the SDF world file'
+    )
+
+    # Force ros_gz_sim to use ign gazebo binary
+    set_gz_binary = SetEnvironmentVariable(
+        name='GZ_SIM_BINARY',
+        value='ign'
     )
 
     gz_sim_launch = IncludeLaunchDescription(
@@ -36,14 +42,14 @@ def generate_launch_description():
         parameters=[{'use_sim_time': True}]
     )
 
-    # Delay starting the bridge to ensure Gazebo topic is ready
     gz_bridge_node_delayed = TimerAction(
-        period=5.0,
+        period=0.001,
         actions=[gz_bridge_node]
     )
 
     ld = LaunchDescription()
     ld.add_action(world_arg)
+    ld.add_action(set_gz_binary)   # <- important to add this here
     ld.add_action(gz_sim_launch)
     ld.add_action(gz_bridge_node_delayed)
 

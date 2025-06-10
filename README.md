@@ -307,9 +307,9 @@ We just considers controlling the uav's height (z) and ignores attitude control.
 ## Fix the issue to make our drone can really hover at a certain height.
 We need to consider the attitude control as an inner loop. Therefore, we can just simply design two other PID controller that ensures the roll and pitch angles are always zeros.
 1. Let review our drone coordinates
-![Hovering task](docs/drone_configuration.png)
+![Drone configuration](docs/drone_configuration.png)
 2. Design the hovering control system
-![Hovering task](docs/pid_control_system_for_hovering.png)
+![Hovering control scheme](docs/pid_control_system_for_hovering.png)
 3. Implement the control system in drone_controller package
 ```bash
    # PLEASE MAKE SURE YOU HAVE YOUR OWN ROS2 PACKAGE, e.g., I have drone_controller package, and I now can add a node inside it
@@ -463,6 +463,18 @@ We need to consider the attitude control as an inner loop. Therefore, we can jus
       main()
 
 ```
+# Test our pid_z_controller_update.py
+1. using colcon build the drone_controller package
+```bash
+   colcon build --packages-select drone_controller
+```
+2. Remember to source before run the node
+```bash
+   source install/setup.bash
+   ros2 run drone_controller <node name you specify in setup.py>
+```
+# The result will be like this
+![Hovering result](docs/hovering_task.gif)
 
 
 

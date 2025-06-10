@@ -304,7 +304,15 @@ All you need to do is that
 # Issue of the current implementation
 We just considers controlling the uav's height (z) and ignores attitude control. Consequently, the drone cannot maintain its height after a few seconds.
 
+## Fix the issue to make our drone can really hover at a certain height.
+We need to consider the attitude control as an inner loop. Therefore, we can just simply design two other PID controller that ensures the roll and pitch angles are always zeros.
+1. Let review our drone coordinates
+![Hovering task](docs/drone_configuration.png)
+2. Design the hovering control system
+![Hovering task](docs/pid_control_system_for_hovering.png)
 
+```bash
+```
 
 
 

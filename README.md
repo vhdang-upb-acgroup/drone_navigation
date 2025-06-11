@@ -651,4 +651,26 @@ We need to consider the attitude control as an inner loop. Therefore, we can jus
 # The result will be like this
 ![way-point-tracking result](docs/way-point-tracking.gif)
 
+## Exercise 6: Make something more interesting: eight-figure trajectory?
+1. All you need to do is to define your own trajectory function for which the drone need to tracking
+```bash
+   def figure8_trajectory(t, A=1.0, B=1.0, omega=1.0, z=1.0):
+      """
+      Generate desired x, y, z positions following a figure-eight trajectory.
+      
+      Args:
+         t (float): time or trajectory parameter
+         A (float): amplitude in x direction
+         B (float): amplitude in y direction
+         omega (float): angular frequency (controls speed)
+         z (float): constant altitude
+         
+      Returns:
+         (x, y, z): desired position tuple
+      """
+      x = A * math.sin(omega * t)
+      y = B * math.sin(omega * t) * math.cos(omega * t)
+      return x, y, z
+```
+2. Can you design and implement more acrobatic trajectory? Now is your time
 
